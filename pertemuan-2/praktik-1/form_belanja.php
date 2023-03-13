@@ -58,7 +58,7 @@
                 </ol>
             </div>
         </div>
-    </form>
+    </form> 
 
     <?php
     if (isset($_GET['submit'])) {
