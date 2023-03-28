@@ -1,11 +1,7 @@
 <?php
-require_once 'dbkoneksi.php';
+require_once '../dbkoneksi.php';
 ?>
 
-<?php 
-require_once 'dbkoneksi.php';
-?>
-            
 <form method="POST" action="proses_pelanggan.php">
   <div class="form-group row">
     <label for="kode" class="col-4 col-form-label">Kode</label> 
@@ -22,7 +18,7 @@ require_once 'dbkoneksi.php';
     </div>
   </div>
   <div class="form-group row">
-    <label for="nama" class="col-4 col-form-label">Nama Pelanggan</label> 
+    <label for="nama" class="col-4 col-form-label">Nama</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
