@@ -3,7 +3,7 @@
 require_once '../dbkoneksi.php';
 
 // Mendapatkan nilai dari parameter 'id' pada URL
-$_id = $_GET['id'];
+$_id = $_GET['iddel'];
 
 // Query DELETE untuk menghapus data pada tabel 'produk' dengan kondisi 'id' = $_id
 $sql = "DELETE FROM produk WHERE id = ?";

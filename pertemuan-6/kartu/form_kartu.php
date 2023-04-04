@@ -6,8 +6,8 @@ require_once '../dbkoneksi.php';
     // cek apakah terdapat parameter id pada URL, jika ada maka dilakukan edit data
     $_id = isset($_GET['id']) ? $_GET['id'] : null;
     if(!empty($_id)){
-        // ambil data produk berdasarkan id
-        $sql = "SELECT * FROM produk WHERE id=?";
+        // ambil data kartu berdasarkan id
+        $sql = "SELECT * FROM kartu WHERE id=?";
         $st = $dbh->prepare($sql);
         $st->execute([$_id]);
         $row = $st->fetch();
@@ -18,7 +18,7 @@ require_once '../dbkoneksi.php';
     }
 ?>
 
-<form method="POST" action="proses_produk.php">
+<form method="POST" action="proses_kartu.php">
   <div class="form-group row">
     <label for="kode" class="col-4 col-form-label">Kode</label> 
     <div class="col-8">
@@ -34,7 +34,7 @@ require_once '../dbkoneksi.php';
     </div>
   </div>
   <div class="form-group row">
-    <label for="nama" class="col-4 col-form-label">Nama Produk</label> 
+    <label for="nama" class="col-4 col-form-label">Nama</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -48,7 +48,7 @@ require_once '../dbkoneksi.php';
     </div>
   </div>
   <div class="form-group row">
-    <label for="harga_beli" class="col-4 col-form-label">Harga Beli</label> 
+    <label for="diskon" class="col-4 col-form-label">Diskon</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -56,13 +56,13 @@ require_once '../dbkoneksi.php';
             <i class="fa fa-arrow-circle-o-left"></i>
           </div>
         </div> 
-        <input id="harga_beli" name="harga_beli" 
-        value="<?php if(isset($row['harga_beli'])) echo $row['harga_beli']; ?>" type="text" class="form-control">
+        <input id="diskon" name="diskon" 
+        value="<?php if(isset($row['diskon'])) echo $row['diskon']; ?>" type="text" class="form-control">
       </div>
     </div>
   </div>
   <div class="form-group row">
-    <label for="stok" class="col-4 col-form-label">Stok</label> 
+    <label for="iuran" class="col-4 col-form-label">iuran</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -70,44 +70,12 @@ require_once '../dbkoneksi.php';
             <i class="fa fa-arrow-circle-up"></i>
           </div>
         </div> 
-        <input id="stok" name="stok" value="<?php if(isset($row['stok'])) echo $row['stok']; ?>"
-        type="text" class="form-control">
+        <input id="iuran" name="iuran" value="<?php if(isset($row['iuran'])) echo $row['iuran']; ?>"
+        type="number" class="form-control">
       </div>
     </div>
   </div>
-  <div class="form-group row">
-    <label for="min_stok" class="col-4 col-form-label">Minimum Stok</label> 
-    <div class="col-8">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <i class="fa fa-arrow-circle-right"></i>
-          </div>
-        </div> 
-        <input id="min_stok" name="min_stok" 
-        value="<?php if(isset($row['min_stok'])) echo $row['min_stok']; ?>"
-        type="text" class="form-control">
-      </div>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="jenis" class="col-4 col-form-label">Jenis Produk</label> 
-    <div class="col-8">
-        <?php 
-            $sqljenis = "SELECT * FROM jenis_produk";
-            $rsjenis = $dbh->query($sqljenis);
-        ?>
-      <select id="jenis" name="jenis" class="custom-select">
-          <?php 
-            foreach($rsjenis as $rowjenis){
-         ?>
-            <option value="<?=$rowjenis['id']?>"><?=$rowjenis['nama']?></option>
-         <?php
-            }
-        ?>
-      </select>
-    </div>
-  </div> 
+  
   <div class="form-group row">
     <div class="offset-4 col-8">
     <?php
@@ -115,7 +83,7 @@ require_once '../dbkoneksi.php';
     ?>
       <input type="submit" name="proses" type="submit" 
       class="btn btn-primary" value="<?=$button?>"/>
-      <input type="hidden" name="idedit" value="<?=$_id?>"/>
+      <input type="hidden" name="id" value="<?=$_id?>"/>
     </div>
   </div>
 </form>
