@@ -37,8 +37,8 @@
                 <tbody>
                     @foreach ($genres as $genre)
                         <tr>
-                            <td>{{ $genre['no']}}</td>
-                            <td>{{ $genre['nama genre']}}</td>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{ $genre['nama']}}</td>
                             <td>{{ $genre['deskripsi']}}</td>
                             
                             <td>
