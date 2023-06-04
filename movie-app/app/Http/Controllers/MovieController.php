@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $genres = Genre::all();
+        return view('movies/create', compact('genres'));
     }
 
     /**
@@ -30,7 +32,18 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vaildateData = $request->validate([
+            'judul' => 'required',
+            'poster' => 'required',
+            'genre_id' => 'required',
+            'negara' => 'required',
+            'tahun' => 'required|integer',
+            'rating' => 'required|numeric',
+        ]);
+
+        Movie::create($vaildateData);
+
+        return redirect('/movies')->with('success', 'Movie added succesfully!');
     }
 
     /**
@@ -62,6 +75,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+
+        return redirect('/movies')->with('success', 'Movie deleted successfully');
     }
 }

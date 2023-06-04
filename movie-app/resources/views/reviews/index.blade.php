@@ -1,20 +1,25 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1 class="mt-4">Movie Data</h1>
+    <h1 class="mt-4">Review Data</h1>
     <div class="d-flex justify-content-between mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
             <li class="breadcrumb-item active">Reviews</li>
         </ol>
-        <a href="#">
+        <a href="/reviews/create">
             <button class="btn btn-success" type="submit">Create Data</button>
         </a>
     </div>
+    @if (session('succes'))
+    <div class="alert alert-succes">
+        {{ session('succes') }}
+    </div>
+    @endif
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Movies Data
+            Review Data
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -52,8 +57,11 @@
                             
                             <td>
                                 <a href="" class="btn btn-sm btn-warning"> Edit</a>
-                                <a href="" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Apakah anda yakin ingin menghapus?')"> Delete</a>
+                                <form action="/reviews/{{ $review->id }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submt" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
