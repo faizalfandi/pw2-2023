@@ -58,15 +58,27 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        $movies = Movie::all();
+        return view('reviews.edit', compact('movies','review'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Review $review)
     {
-        //
+        $vaildateData = $request->validate([
+            'film_id' => 'required',
+            'user' => 'required',
+            'rating' => 'required|numeric',
+            'review' => 'required',
+            'tanggal' => 'required',
+        ]);
+
+        $review->update($vaildateData);
+
+        return redirect('/reviews')->with('success', 'Review added succesfully!');
     }
 
     /**
