@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -40,6 +41,13 @@ class MovieController extends Controller
             'tahun' => 'required|integer',
             'rating' => 'required|numeric',
         ]);
+            //upload gambar
+        if($request->hasFile('poster')) {
+            $extention = $request->file('poster')->getClientOriginalExtension();
+            $imageName = time() . '.' . $extention;
+            $request->file('poster')->storeAs('assets/img', $imageName, 'public');
+            $vaildateData['poster'] = $imageName;
+        }
 
         Movie::create($vaildateData);
 
@@ -76,7 +84,16 @@ class MovieController extends Controller
             'tahun' => 'required|integer',
             'rating' => 'required|numeric',
         ]);
-
+        
+        if($request->hasFile('poster')){
+            //delete gambar
+            Storage::disk('public')->delete('/assets/img/' . $movie->poster);
+            //upload gambar
+            $extention = $request->file('poster')->getClientOriginalExtension();
+            $imageName = time() . '.' . $extention;
+            $request->file('poster')->storeAs('assets/img', $imageName, 'public');
+            $vaildateData['poster'] = $imageName;
+        }
         $movie->update($vaildateData);
 
         return redirect('/movies')->with('success', 'Data berhasil diubah');
@@ -92,3 +109,4 @@ class MovieController extends Controller
         return redirect('/movies')->with('success', 'Movie deleted successfully');
     }
 }
+       
